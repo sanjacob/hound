@@ -10,6 +10,8 @@ defmodule Hound.ConnectionServer do
         {9515, nil, "chrome"}
       "phantomjs" ->
         {8910, nil, "phantomjs"}
+      "geckodriver" ->
+        {4444, nil, "firefox"}
       _ -> # assume selenium
         {4444, "wd/hub/", "firefox"}
     end
