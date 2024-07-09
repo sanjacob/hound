@@ -1,5 +1,12 @@
 Application.start :inets
 
+driver = System.get_env("WEBDRIVER")
+
+if driver == "geckodriver" do
+  IO.puts "Running the test suite is not supported with this driver"
+  exit(:shutdown)
+end
+
 server_root = '#{Path.absname("test/sample_pages")}'
 test_server_config = [
   port: 9090,
@@ -14,7 +21,7 @@ test_server_config = [
 IO.puts "Stopping Hound and restarting with options for test suite..."
 :ok = Application.stop(:hound)
 Hound.Supervisor.start_link(
-  driver: System.get_env("WEBDRIVER"),
+  driver: driver,
   app_port: 9090
 )
 
