@@ -18,7 +18,7 @@ defmodule Hound.Mixfile do
 
   def application do
     [
-      extra_applications: [:logger],
+      extra_applications: [:inets, :logger],
       mod: {Hound, []},
       description: 'Integration testing and browser automation library',
     ]
