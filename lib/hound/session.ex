@@ -22,7 +22,9 @@ defmodule Hound.Session do
   def create_session(browser, opts) do
     capabilities = make_capabilities(browser, opts)
     params = %{
-      desiredCapabilities: capabilities
+      capabilities: %{
+        firstMatch: [capabilities]
+      }
     }
 
     # No retries for this request
@@ -33,18 +35,23 @@ defmodule Hound.Session do
   @spec make_capabilities(Hound.Browser.t, map | Keyword.t) :: map
   def make_capabilities(browser, opts \\ []) do
     browser = opts[:browser] || browser
-    %{
-      javascriptEnabled: false,
-      version: "",
-      rotatable: false,
-      takesScreenshot: true,
-      cssSelectorsEnabled: true,
-      nativeEvents: false,
-      platform: "ANY"
-    }
+
+    # gecko doesn't support any of these capabilities
+    case Keyword.get(opts, :driver) do
+      "geckodriver" -> %{}
+      _ -> %{
+        javascriptEnabled: false,
+        version: "",
+        rotatable: false,
+        takesScreenshot: true,
+        cssSelectorsEnabled: true,
+        nativeEvents: false,
+        platform: "ANY"
+      }
+    end
     |> Map.merge(Hound.Browser.make_capabilities(browser, opts))
-    |> Map.merge(opts[:driver] || %{})
   end
+
 
   @doc "Get capabilities of a particular session"
   @spec session_info(String.t) :: map

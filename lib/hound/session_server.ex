@@ -96,7 +96,10 @@ defmodule Hound.SessionServer do
   end
 
   defp create_session(driver_info, opts) do
-    case Hound.Session.create_session(driver_info[:browser], opts) do
+    # Pass along driver name so capabilities can be altered if needed
+    merged_opts = Keyword.put_new(opts, :driver, driver_info[:driver])
+
+    case Hound.Session.create_session(driver_info[:browser], merged_opts) do
       {:ok, session_id} -> session_id
       {:error, reason} -> raise "could not create a new session: #{reason}, check webdriver is running"
     end
