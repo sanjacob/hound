@@ -108,7 +108,7 @@ defmodule Hound.Helpers.Element do
   def clear_field(element) do
     element = get_element(element)
     session_id = Hound.current_session_id
-    make_req(:post, "session/#{session_id}/element/#{element}/clear")
+    make_req(:post, "session/#{session_id}/element/#{element}/clear", %{id: element})
   end
 
 
@@ -306,7 +306,7 @@ defmodule Hound.Helpers.Element do
   def click(element) do
     element = get_element(element)
     session_id = Hound.current_session_id
-    make_req(:post, "session/#{session_id}/element/#{element}/click")
+    make_req(:post, "session/#{session_id}/element/#{element}/click", %{id: element})
   end
 
 
