@@ -44,7 +44,7 @@ defmodule Hound.Helpers.Session do
     change_session_to(session_name)
     result = apply(func, [])
     change_session_to(previous_session_name)
-    result 
+    result
   end
 
 
