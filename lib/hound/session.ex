@@ -39,6 +39,7 @@ defmodule Hound.Session do
     # gecko doesn't support any of these capabilities
     case Keyword.get(opts, :driver) do
       "geckodriver" -> %{}
+      "chrome_driver" -> %{}
       _ -> %{
         javascriptEnabled: false,
         version: "",
