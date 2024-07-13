@@ -53,7 +53,7 @@ defmodule Hound.Helpers.Element do
   def input_into_field(element, input) do
     element = get_element(element)
     session_id = Hound.current_session_id
-    make_req(:post, "session/#{session_id}/element/#{element}/value", %{value: ["#{input}"]})
+    make_req(:post, "session/#{session_id}/element/#{element}/value", %{value: ["#{input}"], text: "#{input}"})
   end
 
 
@@ -72,7 +72,7 @@ defmodule Hound.Helpers.Element do
     element = get_element(element)
     session_id = Hound.current_session_id
     clear_field(element)
-    make_req(:post, "session/#{session_id}/element/#{element}/value", %{value: ["#{input}"]})
+    make_req(:post, "session/#{session_id}/element/#{element}/value", %{value: ["#{input}"], text: "#{input}"})
   end
 
 
